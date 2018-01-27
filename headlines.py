@@ -4,18 +4,30 @@ import feedparser
 
 app = Flask(__name__)
 
-BBC_FEED = 'http://feeds.bbci.co.uk/news/rss.xml'
+BBC_FEED = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
+            'cnn': 'http://rss.cnn.com/rss/edition.rss',
+            'fox': 'http://feeds.foxnews.com/foxnews/latest',
+            'iol': 'http://www.iol.co.za/cmlink/1.640'}
 
 
 @app.route("/")
-def get_news():
-    feed = feedparser.parse(BBC_FEED) # return a dict
+@app.route("/bbc")
+def bbc():
+    return get_news('bbc')
+
+@app.route("/fox")
+def fox():
+    return get_news('fox')
+
+
+def get_news(publication):
+    feed = feedparser.parse(BBC_FEED[publication]) # return a dict
     entries = feed['entries']  # return a list
     first_article = entries[0] # return a dict
     return """
     <html>
         <body>
-            <h1> BBC Headlines </h1>
+            <h1> Headlines </h1>
             <b>{0}</b> <br />
             <i>{1}</i> <br />
             <p>{2}</p> <br />
