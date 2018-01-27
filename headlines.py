@@ -11,16 +11,8 @@ BBC_FEED = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
 
 
 @app.route("/")
-@app.route("/bbc")
-def bbc():
-    return get_news('bbc')
-
-@app.route("/fox")
-def fox():
-    return get_news('fox')
-
-
-def get_news(publication):
+@app.route("/<publication>")
+def get_news(publication='bbc'):
     feed = feedparser.parse(BBC_FEED[publication]) # return a dict
     entries = feed['entries']  # return a list
     first_article = entries[0] # return a dict
