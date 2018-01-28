@@ -17,10 +17,7 @@ def get_news(publication='bbc'):
     feed = feedparser.parse(BBC_FEED[publication]) # return a dict
     entries = feed['entries']  # return a list
     first_article = entries[0] # return a dict
-    return render_template('home.html',
-                            title=first_article.get('title'),
-                            published=first_article.get('published'),
-                            summary=first_article.get('summary'))
+    return render_template('home.html',article=first_article)
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
