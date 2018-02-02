@@ -12,21 +12,31 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
             'fox': 'http://feeds.foxnews.com/foxnews/latest',
             'iol': 'http://www.iol.co.za/cmlink/1.640'}
 
+DEFAULTS = {'publication': 'bbc',
+            'city': 'London,UK'}
 
 @app.route("/")
-def get_news():
-    query = request.args.get('publication')
+def home():
+    publication = request.args.get('publication')
+    if not publication:
+        publication = DEFAULTS['publication']
+    articles = get_news(publication)
+    city = request.args.get('city')
+    if not city:
+        city = DEFAULTS['city']
+    weather = get_weather(city)
+    return render_template('home.html', articles=articles, weather=weather)
+
+
+def get_news(query):
     if not query or query.lower() not in RSS_FEEDS:
-        publication = 'bbc'
+        publication = DEFAULTS["publication"]
     else:
         publication = query.lower()
     feed = feedparser.parse(RSS_FEEDS[publication]) # return a dict
     entries = feed['entries']  # return a list
-    weather = get_weather("London,UK")
     #first_article = entries[0] # return a dict
-    return render_template('home.html',
-                            articles=entries,
-                            weather=weather)
+    return entries
 
 
 def get_weather(query):  # query 指定查询某一城市（的天气）
