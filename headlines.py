@@ -4,7 +4,6 @@ from flask import render_template
 from flask import request    # for Flask's request context
 import json
 import urllib
-import urllib2
 
 app = Flask(__name__)
 
@@ -30,13 +29,13 @@ def get_news():
                             weather=weather)
 
 
-def get_weather(query):
-    api_url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid='# 加API Key
-    query = urllib.quote(query)
+def get_weather(query):  # query 指定查询某一城市（的天气）
+    api_url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=26f21a04122e72113ff3977ee7cf7977'# 加API Key
+    query = urllib.parse.quote(query)  # 处理url中的特殊符号，使符合url编码，如空格转换为"%20"
     url = api_url.format(query)
-    data = urllib2.urlopen(url).read()
-    parsed = json.loads(data)
-    weather = None
+    data = urllib.request.urlopen(url).read() # return JSON string
+    parsed = json.loads(data) # load string to convert into a Dict
+    weather = None  # 技巧，设一个空变量
     if parsed.get("weather"):
         weather = {"description": parsed['weather'][0]['description'],  # 生成一个字典并返回
                     "temperature": parsed['main']['temp'],

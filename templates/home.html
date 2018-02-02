@@ -13,7 +13,7 @@
         </form>
         
         <p>City: <b>{{weather.city}}</b></p>
-        <p>{{weather.description}} | {{weather.temperature}}&#8451;</p>
+        <p>{{weather.description}} | {{weather.temperature}}&#8451;</p> <!-- &#8451摄氏度符号-->
         <h2>Headlines</h2>
         {% for article in articles %}
         <b><a href="{{article.link}}">{{article.title}}</a></b><br />
