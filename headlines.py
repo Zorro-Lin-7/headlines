@@ -49,7 +49,9 @@ def get_weather(query):  # query 指定查询某一城市（的天气）
     if parsed.get("weather"):
         weather = {"description": parsed['weather'][0]['description'],  # 生成一个字典并返回
                     "temperature": parsed['main']['temp'],
-                    'city': parsed['name']}
+                    'city': parsed['name'],
+                    'country': parsed['sys']['country']
+                    }
     return weather
     
 if __name__ == '__main__':
