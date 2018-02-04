@@ -15,12 +15,16 @@
         <p>City: <b>{{weather.city}}, {{weather.country}}</b></p>
         <p>{{weather.description}} | {{weather.temperature}}&#8451;</p> <!-- &#8451摄氏度符号-->
         
+        <h2>Currency</h2>
+        1 {{currency_from}} = {{currency_to}} {{rate}}
+        
+        <h2>Headlines</h2>
+        
         <form>
             <input type='text' name='search' placeholder='search' >
             <input type='submit' value='Submit' >
         </form>
         
-        <h2>Headlines</h2>
         {% for article in articles %}
         <b><a href="{{article.link}}">{{article.title}}</a></b><br />
         <i>{{article.published}}</i><br />
