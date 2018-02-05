@@ -18,8 +18,8 @@ DEFAULTS = {'publication': 'bbc',
             'currency_to': 'USD'
             }
 
-WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=26f21a04122e72113ff3977ee7cf7977'# 加API Key
-CURRENCY_URL = "https://openexchangerates.org//api/latest.json?app_id=9593551754524eba911fca081a9e6628"
+WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid='# 加API Key
+CURRENCY_URL = "https://openexchangerates.org//api/latest.json?app_id="
 
 @app.route("/")
 def home():
